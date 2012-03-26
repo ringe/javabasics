@@ -56,12 +56,11 @@ public class Triangle extends GeoObject {
 	}
 
 	public String toString() {
-		return "Rectangle: " + length + "w, " + width + "h, " + getArea() + " area and " + getPerimeter() + " around. " + getColor() + " x: " + getXPOs() + " y: " + getYPOs(); 
+		return "Rectangle: " + length + "w, " + width + "h, " + getArea() + " area and " + getPerimeter() + " around. " + getColor() + " x: " + getXPos() + " y: " + getYPos(); 
 	}
 
 	@Override
 	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
-		
+		//g.drawPolygon();		
 	}
 }

@@ -55,9 +55,9 @@ public abstract class GeoObject {
 		this.movable = movable;
 	}
 
-	public int getXPOs(){return xPos;};
+	public int getXPos(){return xPos;};
 
-	public int getYPOs(){return yPos;};
+	public int getYPos(){return yPos;};
 
 	// set metoder for xPos, yPos
 	public boolean isFilled() {

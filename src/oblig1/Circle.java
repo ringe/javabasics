@@ -50,13 +50,12 @@ public class Circle extends GeoObject {
 	}
 	
 	public String toString() {
-		return "Circle: " + radius + "r, " + getArea() + " area " + getPerimeter() + " around. " + getColor() + " x: " + getXPOs() + " y: " + getYPOs();
+		return "Circle: " + radius + "r, " + getArea() + " area " + getPerimeter() + " around. " + getColor() + " x: " + getXPos() + " y: " + getYPos();
 	}
 
 	@Override
 	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
-		
+		g.drawOval(getXPos(), getYPos(), (int) radius, (int) radius);
 	}
 
 }
