@@ -3,6 +3,9 @@
  */
 package oblig1;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 /**
  * @author runar
  *
@@ -22,7 +25,7 @@ public class Circle extends GeoObject {
 	 * Constructor, takes length and width
 	 */
 	public Circle(int r) {
-		super( 1, 1, true, "green");
+		super( 1, 1, true, Color.green);
 		radius = r;
 	}
 	
@@ -48,6 +51,12 @@ public class Circle extends GeoObject {
 	
 	public String toString() {
 		return "Circle: " + radius + "r, " + getArea() + " area " + getPerimeter() + " around. " + getColor() + " x: " + getXPOs() + " y: " + getYPOs();
+	}
+
+	@Override
+	public void draw(Graphics g) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

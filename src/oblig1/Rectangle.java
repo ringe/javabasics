@@ -3,6 +3,9 @@
  */
 package oblig1;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 /**
  * @author runar
  *
@@ -23,7 +26,7 @@ public class Rectangle extends GeoObject {
 	 * Constructor, takes length and width
 	 */
 	public Rectangle(int l, int w) {
-		super( 0, 0, true, "blue");
+		super( 0, 0, true, Color.blue);
 		length = l;
 		width = w;
 	}
@@ -54,5 +57,11 @@ public class Rectangle extends GeoObject {
 
 	public String toString() {
 		return "Rectangle: " + length + "w, " + width + "h, " + getArea() + " area and " + getPerimeter() + " around. " + getColor() + " x: " + getXPOs() + " y: " + getYPOs(); 
+	}
+
+	@Override
+	public void draw(Graphics g) {
+		// TODO Auto-generated method stub
+		
 	}
 }
