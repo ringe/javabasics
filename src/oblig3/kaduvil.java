@@ -99,8 +99,11 @@ public class kaduvil {
 		Button btnTrekant = new Button(shell, SWT.NONE);
 		btnTrekant.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void widgetSelected(SelectionEvent arg0) {				
-				Triangle t = new Triangle();
+			public void widgetSelected(SelectionEvent arg0) {		
+				Random random = new Random();
+				int xMaxSize = (1/6*shell.getSize().x);
+				int yMaxSize = (1/6*shell.getSize().y);				
+				Triangle t = new Triangle(((random.nextInt(xMaxSize)+1)),((random.nextInt(yMaxSize)+1)));
 				list.add(t);
 				
 				
