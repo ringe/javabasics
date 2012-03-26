@@ -56,11 +56,13 @@ public class Rectangle extends GeoObject {
 	}
 
 	public String toString() {
-		return "Rectangle: " + length + "w, " + width + "h, " + getArea() + " area and " + getPerimeter() + " around. " + getColor() + " x: " + getXPos() + " y: " + getYPos(); 
+		return "Rectangle: " + length + "w, " + width + "h, " + getArea() + " area and " + getPerimeter() + " around. " + getColor() + " x: " + getXPOs() + " y: " + getYPOs(); 
 	}
 
 	@Override
 	public void draw(Graphics g) {
-		g.drawRect(getXPos(), getYPos(), (int) width, (int) length);
+		// TODO Auto-generated method stub
+		
+		
 	}
 }
