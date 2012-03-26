@@ -3,6 +3,7 @@ package oblig3;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
 import oblig1.Circle;
 import oblig1.GeoObject;
@@ -133,9 +134,14 @@ public class kaduvil {
 		Button btnTrekant = new Button(shell, SWT.NONE);
 		btnTrekant.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void widgetSelected(SelectionEvent arg0) {				
-				Triangle t = new Triangle();
+			public void widgetSelected(SelectionEvent arg0) {		
+				Random random = new Random();
+				int xMaxSize = (1/6*shell.getSize().x);
+				int yMaxSize = (1/6*shell.getSize().y);				
+				Triangle t = new Triangle(((random.nextInt(xMaxSize)+1)),((random.nextInt(yMaxSize)+1)));
 				list.add(t);
+				
+				
 			}
 		});
 		btnTrekant.setText("Trekant");
@@ -144,8 +150,11 @@ public class kaduvil {
 		Button btnFirkant = new Button(shell, SWT.NONE);
 		btnFirkant.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void widgetSelected(SelectionEvent arg0) {
-				Rectangle r = new Rectangle();
+			public void widgetSelected(SelectionEvent arg0) {				
+				Random random = new Random();
+				int xMaxSize = (1/6*shell.getSize().x);
+				int yMaxSize = (1/6*shell.getSize().y);				
+				Rectangle r = new Rectangle(((random.nextInt(xMaxSize)+1)),((random.nextInt(yMaxSize)+1)));
 				list.add(r);
 			}
 		});
@@ -156,7 +165,19 @@ public class kaduvil {
 		btnSirkel.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				Circle c = new Circle(); 
+				Random random = new Random();
+				int xMaxSize = (1/6*shell.getSize().x);
+				int yMaxSize = (1/6*shell.getSize().y);
+				Circle c;
+				if(xMaxSize > yMaxSize)
+				{
+					c = new Circle((random.nextInt(yMaxSize)+1)); 
+				}
+				else 
+				{
+					c = new Circle((random.nextInt(xMaxSize)+1)); 
+				}
+				
 				list.add(c);
 			}
 		});
