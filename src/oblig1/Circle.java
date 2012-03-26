@@ -6,6 +6,8 @@ package oblig1;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import org.eclipse.swt.graphics.GC;
+
 /**
  * @author runar
  *
@@ -54,7 +56,7 @@ public class Circle extends GeoObject {
 	}
 
 	@Override
-	public void draw(Graphics g) {
+	public void draw(GC g) {
 		g.drawOval(getXPos(), getYPos(), (int) radius, (int) radius);
 	}
 

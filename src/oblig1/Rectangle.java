@@ -6,6 +6,8 @@ package oblig1;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import org.eclipse.swt.graphics.GC;
+
 /**
  * @author runar
  *
@@ -60,7 +62,7 @@ public class Rectangle extends GeoObject {
 	}
 
 	@Override
-	public void draw(Graphics g) {
-		g.drawRect(getXPos(), getYPos(), (int) width, (int) length);
+	public void draw(GC g) {
+		g.drawRectangle(getXPos(), getYPos(), (int) width, (int) length);
 	}
 }

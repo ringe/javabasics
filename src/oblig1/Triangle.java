@@ -7,6 +7,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Polygon;
 
+import org.eclipse.swt.graphics.GC;
+
 /**
  * @author runar
  *
@@ -60,12 +62,16 @@ public class Triangle extends GeoObject {
 		return "Rectangle: " + height + "w, " + width + "h, " + getArea() + " area and " + getPerimeter() + " around. " + getColor() + " x: " + getXPos() + " y: " + getYPos(); 
 	}
 
+	/**
+	 * TODO
+	 */
 	@Override
-	public void draw(Graphics g) {
+	public void draw(GC g) {
 		Polygon p = new Polygon();
 		p.addPoint(getXPos(), getYPos());
 		p.addPoint(getXPos() + (int) width, getYPos());
 		p.addPoint(getXPos() + (int) width/2, getYPos() + (int) height);
-		g.drawPolygon(p);		
+		g.fillPolygon(null);
+//		g.drawPolyline(p);		
 	}
 }

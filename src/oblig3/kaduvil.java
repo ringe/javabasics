@@ -2,6 +2,7 @@ package oblig3;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import oblig1.Circle;
 import oblig1.GeoObject;
@@ -14,6 +15,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Slider;
+import org.eclipse.swt.events.PaintEvent;
+import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
@@ -24,6 +27,8 @@ public class kaduvil {
 	private ArrayList<GeoObject> list = new ArrayList<GeoObject>();
 	private Button btnBeveg;
 	private Slider slider;
+	private Display display;
+	private Canvas canvas;
 
 	/**
 	 * Launch the application.
@@ -42,16 +47,34 @@ public class kaduvil {
 	 * Open the window.
 	 */
 	public void open() {
-		Display display = Display.getDefault();
+		
+		display = Display.getDefault();
 		createContents();
 		shell.open();
 		shell.layout();
+		display.asyncExec(new Runnable() {
+		    public void run() {
+		    	try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+		    	display.asyncExec(new Runnable() {
+		            public void run() {
+		            	canvas.update();
+		            }
+		        });
+		    }
+		});
+		
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
 			}
 		}
+		display.dispose();
 	}
+	
 
 	/**
 	 * Create contents of the window.
@@ -60,9 +83,21 @@ public class kaduvil {
 		shell = new Shell();
 		shell.setSize(450, 300);
 		shell.setText("SWT Application");
+		 
 		
-		Canvas canvas = new Canvas(shell, SWT.NONE);
+		canvas = new Canvas(shell, SWT.NONE);
 		canvas.setBounds(10, 10, 313, 242);
+		canvas.addPaintListener(new PaintListener(){ 
+	        public void paintControl(PaintEvent e){ 
+	        	org.eclipse.swt.graphics.Rectangle clientArea = shell.getClientArea(); 
+	        	e.gc.drawLine(0,0,clientArea.width,clientArea.height);
+	        	for(Iterator<GeoObject> i = list.iterator();i.hasNext();)
+            	{
+            		GeoObject o = i.next();
+            		o.draw(e.gc);
+            	}
+	        } 
+	    });
 		
 		Button btnFarge = new Button(shell, SWT.NONE);
 		btnFarge.addSelectionListener(new SelectionAdapter() {
