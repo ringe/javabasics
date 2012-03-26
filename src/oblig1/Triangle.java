@@ -5,6 +5,7 @@ package oblig1;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Polygon;
 
 /**
  * @author runar
@@ -12,7 +13,7 @@ import java.awt.Graphics;
  */
 public class Triangle extends GeoObject {
 
-	private double length = 1.0;
+	private double height = 1.0;
 	private double width = 1.0;
 	
 	/*
@@ -27,12 +28,12 @@ public class Triangle extends GeoObject {
 	 */
 	public Triangle(int l, int w) {
 		super( 0, 0, true, Color.blue);
-		length = l;
+		height = l;
 		width = w;
 	}
 	
-	public double getLength() {
-		return length;
+	public double getHeight() {
+		return height;
 	}
 	
 	public double getWidth() {
@@ -44,7 +45,7 @@ public class Triangle extends GeoObject {
 	 */
 	@Override
 	public double getArea() {
-		return length * width;
+		return height * width;
 	}
 
 	/* (non-Javadoc)
@@ -52,15 +53,19 @@ public class Triangle extends GeoObject {
 	 */
 	@Override
 	public double getPerimeter() {
-		return length * 2 + width * 2;
+		return height * 2 + width * 2;
 	}
 
 	public String toString() {
-		return "Rectangle: " + length + "w, " + width + "h, " + getArea() + " area and " + getPerimeter() + " around. " + getColor() + " x: " + getXPos() + " y: " + getYPos(); 
+		return "Rectangle: " + height + "w, " + width + "h, " + getArea() + " area and " + getPerimeter() + " around. " + getColor() + " x: " + getXPos() + " y: " + getYPos(); 
 	}
 
 	@Override
 	public void draw(Graphics g) {
-		//g.drawPolygon();		
+		Polygon p = new Polygon();
+		p.addPoint(getXPos(), getYPos());
+		p.addPoint(getXPos() + (int) width, getYPos());
+		p.addPoint(getXPos() + (int) width/2, getYPos() + (int) height);
+		g.drawPolygon(p);		
 	}
 }
