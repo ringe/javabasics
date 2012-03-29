@@ -47,6 +47,7 @@ public class kaduvil {
 	/**
 	 * Open the window.
 	 */
+	
 	public void open() {
 		
 		display = Display.getDefault();
@@ -63,6 +64,12 @@ public class kaduvil {
 		    	display.asyncExec(new Runnable() {
 		            public void run() {
 		            	canvas.update();
+		            	for(Iterator<GeoObject> i = list.iterator();i.hasNext();)
+		            	{
+		            		GeoObject o = i.next();
+		            		o.;
+		            	}
+		            	
 		            }
 		        });
 		    }
@@ -185,4 +192,5 @@ public class kaduvil {
 		btnSirkel.setBounds(329, 219, 75, 25);
 
 	}
+	
 }

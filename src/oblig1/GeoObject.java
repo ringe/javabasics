@@ -14,12 +14,16 @@ import org.eclipse.swt.graphics.GC;
  */
 // GeoObject.java:
 public abstract class GeoObject {
-	private Color color = Color.white;
-	private boolean filled;
-	private int xPos;
-	private int yPos;
-	private int speed;
-	private boolean movable;
+	protected Color color = Color.white;
+	protected boolean filled;
+	protected int xPos;
+	protected int yPos;
+	protected int dx = 1;
+	protected int dy = 1;
+	protected int speedFactor =1;
+	protected boolean movable;
+	protected int panelWidth;
+	protected int panelHeight;
 
 	// Default constructor
 	protected GeoObject() {
@@ -32,6 +36,15 @@ public abstract class GeoObject {
 		filled = f;
 		color = c;
 	}
+	//ny konstruktør
+	protected GeoObject(int x, int y, boolean f, Color c,int panelWidth, int panelHeight) {
+		xPos = x;
+		yPos = y;
+		filled = f;
+		color = c;
+		this.panelHeight = panelHeight;
+		this.panelWidth = panelWidth;
+	}
 
 	public Color getColor() {
 		return color;
@@ -42,7 +55,7 @@ public abstract class GeoObject {
 	}
 
 	public int getSpeed() {
-		return speed;
+		return speedFactor;
 	}
 
 	public void setSpeed(int speed) {
@@ -75,5 +88,8 @@ public abstract class GeoObject {
 	public abstract double getPerimeter();
 	
 	public abstract void draw(GC gc);
+	
+	public abstract void move();
+
 
 }
