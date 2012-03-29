@@ -28,9 +28,19 @@ public class Rectangle extends GeoObject {
 	 * Constructor, takes length and width
 	 */
 	public Rectangle(int l, int w) {
-		super( 0, 0, true, Color.blue);
+		super( 0, 0, true, Color.blue, 300, 300);
 		length = l;
 		width = w;
+	}
+	public Rectangle(int x, int y, boolean f, Color c,int panelWidth, int panelHeight, int width, int length) {
+		xPos = x;
+		yPos = y;
+		filled = f;
+		color = c;
+		this.panelHeight = panelHeight;
+		this.panelWidth = panelWidth;
+		this.width = width;
+		this.length = length;
 	}
 	
 	public double getLength() {
@@ -64,5 +74,36 @@ public class Rectangle extends GeoObject {
 	@Override
 	public void draw(GC g) {
 		g.drawRectangle(getXPos(), getYPos(), (int) width, (int) length);
+	}
+	public void move()
+	{
+		xPos += dx;
+        yPos += dy;
+       
+        
+        
+        if (xPos < 0)
+        {
+            xPos = 0;
+            dx = -dx;
+        }
+
+        if (xPos + width >= panelWidth)
+        {
+            xPos = (int) ((double)panelWidth - width);
+            dx = -dx;
+        }
+
+        if (yPos < 0)
+        {
+            yPos = 0;
+            dy = -dy;
+        }
+
+        if (yPos + length >= panelHeight)
+        {
+            yPos = (int) (panelHeight - length);
+            dy = -dy;
+        }
 	}
 }

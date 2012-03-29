@@ -52,6 +52,7 @@ public class kaduvil {
 	/**
 	 * Open the window.
 	 */
+	
 	public void open() {
 
 		display = Display.getDefault();
@@ -211,4 +212,5 @@ public class kaduvil {
 				new Label(shell, SWT.NONE);
 
 	}
+	
 }
