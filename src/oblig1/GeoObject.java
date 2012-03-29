@@ -6,6 +6,8 @@ package oblig1;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import org.eclipse.swt.graphics.GC;
+
 /**
  * @author runar
  * 
@@ -72,6 +74,6 @@ public abstract class GeoObject {
 
 	public abstract double getPerimeter();
 	
-	public abstract void draw(Graphics g);
+	public abstract void draw(GC gc);
 
 }
