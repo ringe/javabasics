@@ -59,7 +59,7 @@ public abstract class GeoObject {
 	}
 
 	public void setSpeed(int speed) {
-		this.speed = speed;
+		this.speedFactor = speed;
 	}
 
 	public boolean isMovable() {
