@@ -67,7 +67,7 @@ public class kaduvil {
 		            	for(Iterator<GeoObject> i = list.iterator();i.hasNext();)
 		            	{
 		            		GeoObject o = i.next();
-		            		o.;
+		            	
 		            	}
 		            	
 		            }
