@@ -18,8 +18,8 @@ public abstract class GeoObject {
 	protected boolean filled;
 	protected int xPos;
 	protected int yPos;
-	protected int dx = 1;
-	protected int dy = 1;
+	protected int dx = 10;
+	protected int dy = 10;
 	protected int speedFactor =1;
 	protected boolean movable;
 	protected int panelWidth;

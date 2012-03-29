@@ -167,12 +167,14 @@ public class Kaduvil {
 						Circle c;
 						if(xMaxSize > yMaxSize)
 						{
-							c = new Circle(m); 
+							c = new Circle(1, 1, true, Color.PINK, canvas.getSize().x, canvas.getSize().y, ((m)));
 						}
 						else 
 						{
-							c = new Circle((random.nextInt(xMaxSize)+1)); 
+							//c = new Circle((random.nextInt(xMaxSize)+1)); 
+							c = new Circle(1, 1, true, Color.PINK, canvas.getSize().x, canvas.getSize().y, ((random.nextInt(xMaxSize)+1)));
 						}
+						
 
 						list.add(c);
 					}
@@ -188,7 +190,8 @@ public class Kaduvil {
 						Point s = shell.getSize();
 						int xMaxSize = (s.x/6);
 						int yMaxSize = (s.y/6);						
-						Rectangle r = new Rectangle(((random.nextInt(xMaxSize)+1)),((random.nextInt(yMaxSize)+1)));
+						//Rectangle r = new Rectangle(((random.nextInt(xMaxSize)+1)),((random.nextInt(yMaxSize)+1)));
+						Rectangle r = new Rectangle(1, 1, true, Color.PINK, canvas.getSize().x, canvas.getSize().y, ((random.nextInt(xMaxSize)+1)),((random.nextInt(yMaxSize)+1)));
 						list.add(r);
 					}
 				});
@@ -203,7 +206,8 @@ public class Kaduvil {
 								Point s = shell.getSize();
 								int xMaxSize = (s.x/6);
 								int yMaxSize = (s.y/6);				
-								Triangle t = new Triangle(((random.nextInt(xMaxSize)+1)),((random.nextInt(yMaxSize)+1)));
+								//Triangle t = new Triangle(((random.nextInt(xMaxSize)+1)),((random.nextInt(yMaxSize)+1)));
+								Triangle t = new Triangle(1, 1, true, Color.PINK, canvas.getSize().x, canvas.getSize().y, ((random.nextInt(xMaxSize)+1)),((random.nextInt(yMaxSize)+1)));
 								list.add(t);
 							}
 						});
