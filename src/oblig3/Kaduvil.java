@@ -25,7 +25,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
 
-public class kaduvil {
+public class Kaduvil {
 
 	protected Shell shell;
 	private GeoObject selectedObject;
@@ -42,7 +42,7 @@ public class kaduvil {
 	 */
 	public static void main(String[] args) {
 		try {
-			kaduvil window = new kaduvil();
+			Kaduvil window = new Kaduvil();
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
