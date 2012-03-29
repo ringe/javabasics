@@ -1,0 +1,4 @@
+1. klikk for å velge objekt
+2. sett farge på valgt objekt
+3. sett bevegelse på valgt objekt
+4. sett fart på velgt objekt
