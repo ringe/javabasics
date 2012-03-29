@@ -71,9 +71,6 @@ public class Triangle extends GeoObject {
 		return "Rectangle: " + height + "w, " + width + "h, " + getArea() + " area and " + getPerimeter() + " around. " + getColor() + " x: " + getXPos() + " y: " + getYPos(); 
 	}
 
-	/**
-	 * TODO
-	 */
 	@Override
 	public void draw(GC g) {
 		Polygon p = new Polygon();
