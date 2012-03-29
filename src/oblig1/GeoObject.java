@@ -21,7 +21,7 @@ public abstract class GeoObject {
 	protected int dx = 10;
 	protected int dy = 10;
 	protected int speedFactor =1;
-	protected boolean movable;
+	protected boolean movable = true;
 	protected int panelWidth;
 	protected int panelHeight;
 
@@ -36,7 +36,7 @@ public abstract class GeoObject {
 		filled = f;
 		color = c;
 	}
-	//ny konstruktør
+	//ny konstruktï¿½r
 	protected GeoObject(int x, int y, boolean f, Color c,int panelWidth, int panelHeight) {
 		xPos = x;
 		yPos = y;
@@ -91,5 +91,5 @@ public abstract class GeoObject {
 	
 	public abstract void move();
 
-
+	public abstract boolean select(int x, int y);
 }

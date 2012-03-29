@@ -12,10 +12,15 @@ import oblig1.Triangle;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Slider;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -122,6 +127,24 @@ public class Kaduvil {
 				gridData.horizontalAlignment = GridData.FILL;
 				gridData.grabExcessHorizontalSpace = true;
 				canvas.setLayoutData(gridData);
+				
+				// Listen for canvas clicks to see if a GeoObject was selected
+				canvas.addListener(SWT.MouseDown, new Listener() {
+					@Override
+					public void handleEvent(Event e) {
+						System.out.println("Clicked " + e.x + ":" + e.y);
+						
+						for(Iterator<GeoObject> i = list.iterator();i.hasNext();)
+						{
+							GeoObject o = i.next();
+							if (o.select(e.x, e.y)) {
+								System.out.println("Selected " + o.toString());
+								selectedObject = o;
+							}
+						}
+						
+					}
+				});
 		
 				Button btnFarge = new Button(shell, SWT.NONE);
 				btnFarge.addSelectionListener(new SelectionAdapter() {
@@ -137,8 +160,7 @@ public class Kaduvil {
 		btnBeveg.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				boolean b = selectedObject.isMovable();
-				selectedObject.setMovable(!b);
+				selectedObject.setMovable(!selectedObject.isMovable());
 			}
 		});
 		btnBeveg.setText("Beveg");

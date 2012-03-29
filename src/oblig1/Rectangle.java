@@ -75,8 +75,18 @@ public class Rectangle extends GeoObject {
 	public void draw(GC g) {
 		g.drawRectangle(getXPos(), getYPos(), (int) width, (int) length);
 	}
+	
+	@Override
+	public boolean select(int x, int y) {
+		org.eclipse.swt.graphics.Rectangle r = new org.eclipse.swt.graphics.Rectangle(xPos, yPos, xPos + (int) width, yPos + (int) length);
+		return r.contains(x, y);
+	}
+	
 	public void move()
 	{
+		if (!isMovable())
+			return;
+		
 		xPos += dx;
         yPos += dy;
        

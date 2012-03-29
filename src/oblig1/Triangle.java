@@ -56,7 +56,7 @@ public class Triangle extends GeoObject {
 	 */
 	@Override
 	public double getArea() {
-		return height * width;
+		return (height * width) / 2;
 	}
 
 	/* (non-Javadoc)
@@ -64,28 +64,42 @@ public class Triangle extends GeoObject {
 	 */
 	@Override
 	public double getPerimeter() {
-		return height * 2 + width * 2;
+		// TOOD
+		return 0.0;
 	}
 
 	public String toString() {
-		return "Rectangle: " + height + "w, " + width + "h, " + getArea() + " area and " + getPerimeter() + " around. " + getColor() + " x: " + getXPos() + " y: " + getYPos(); 
+		return "Triangle: " + height + "w, " + width + "h, " + getArea() + " area and " + getPerimeter() + " around. " + getColor() + " x: " + getXPos() + " y: " + getYPos(); 
+	}
+	
+	private int[] points() {
+		int x = xPos;
+		int y = yPos + (int) height;
+		int[] a = {x, y, x + (int) width / 2, y - (int) height, x + (int) width, y};
+		return a; 
+	}
+	
+	@Override
+	public boolean select(int x, int y) {
+		int[] p = points();
+		Polygon po = new Polygon();
+		po.addPoint(p[0], p[1]);
+		po.addPoint(p[2], p[3]);
+		po.addPoint(p[4], p[5]);
+		return po.contains(x, y);
 	}
 
 	@Override
 	public void draw(GC g) {
-		Polygon p = new Polygon();
-		p.addPoint(getXPos(), getYPos());
-		p.addPoint(getXPos() + (int) width, getYPos());
-		p.addPoint(getXPos() + (int) width/2, getYPos() + (int) height);
-		
-		int x = getXPos();
-		int y = getYPos() + (int) height;
-		int[] a = {x, y, x + (int) width / 2, y - (int) height, x + (int) width, y};
-		g.drawPolyline(a);
-		g.drawLine(x, y, x + (int) width, y);
+		g.drawPolyline(points());
+		g.drawLine(xPos, yPos  + (int) height, xPos + (int) width, yPos + (int) height);
 	}
+	
 	public void move()
 	{
+		if (!isMovable())
+			return;
+		
 		xPos += dx;
         yPos += dy;
        

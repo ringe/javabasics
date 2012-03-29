@@ -71,8 +71,18 @@ public class Circle extends GeoObject {
 	public void draw(GC g) {
 		g.drawOval(getXPos(), getYPos(), (int) radius, (int) radius);
 	}
+	
+	@Override
+	public boolean select(int x, int y) {
+		if ((Math.pow((x - xPos), 2) + Math.pow((y - yPos), 2)) < Math.pow(radius, 2))
+			return true;
+		return false;
+	}
+	
 	public void move()
 	{
+		if (!isMovable())
+			return;
 		xPos += dx;
         yPos += dy;
        
