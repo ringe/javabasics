@@ -27,9 +27,21 @@ public class Circle extends GeoObject {
 	 * Constructor, takes length and width
 	 */
 	public Circle(int r) {
-		super( 1, 1, true, Color.green);
+		super( 1, 1, true, Color.green,300,300);
 		radius = r;
 	}
+	
+	//new constructor
+	public Circle(int x, int y, boolean f, Color c,int panelWidth, int panelHeight, int radius) {
+		xPos = x;
+		yPos = y;
+		filled = f;
+		color = c;
+		this.panelHeight = panelHeight;
+		this.panelWidth = panelWidth;
+		this.radius = radius;
+	}
+	
 	
 	public double getRadius() {
 		return radius;
@@ -58,6 +70,37 @@ public class Circle extends GeoObject {
 	@Override
 	public void draw(GC g) {
 		g.drawOval(getXPos(), getYPos(), (int) radius, (int) radius);
+	}
+	public void move()
+	{
+		xPos += dx;
+        yPos += dy;
+       
+        
+        
+        if (xPos < 0)
+        {
+            xPos = 0;
+            dx = -dx;
+        }
+
+        if (xPos + 2*radius >= panelWidth)
+        {
+            xPos = (int) ((double)panelWidth - 2*radius);
+            dx = -dx;
+        }
+
+        if (yPos < 0)
+        {
+            yPos = 0;
+            dy = -dy;
+        }
+
+        if (yPos + 2*radius >= panelHeight)
+        {
+            yPos = (int) (panelHeight - 2*radius);
+            dy = -dy;
+        }
 	}
 
 }

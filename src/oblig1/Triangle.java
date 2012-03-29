@@ -29,11 +29,20 @@ public class Triangle extends GeoObject {
 	 * Constructor, takes length and width
 	 */
 	public Triangle(int l, int w) {
-		super( 0, 0, true, Color.blue);
+		super( 0, 0, true, Color.blue, 300, 300);
 		height = l;
 		width = w;
 	}
-	
+	public Triangle(int x, int y, boolean f, Color c,int panelWidth, int panelHeight, int width, int height) {
+		xPos = x;
+		yPos = y;
+		filled = f;
+		color = c;
+		this.panelHeight = panelHeight;
+		this.panelWidth = panelWidth;
+		this.width = width;
+		this.height = height;
+	}
 	public double getHeight() {
 		return height;
 	}
@@ -73,5 +82,36 @@ public class Triangle extends GeoObject {
 		p.addPoint(getXPos() + (int) width/2, getYPos() + (int) height);
 //		g.fillPolygon(null);
 //		g.drawPolyline(p);		
+	}
+	public void move()
+	{
+		xPos += dx;
+        yPos += dy;
+       
+        
+        
+        if (xPos < 0)
+        {
+            xPos = 0;
+            dx = -dx;
+        }
+
+        if (xPos + width >= panelWidth)
+        {
+            xPos = (int) ((double)panelWidth - width);
+            dx = -dx;
+        }
+
+        if (yPos < 0)
+        {
+            yPos = 0;
+            dy = -dy;
+        }
+
+        if (yPos + height >= panelHeight)
+        {
+            yPos = (int) (panelHeight - height);
+            dy = -dy;
+        }
 	}
 }
