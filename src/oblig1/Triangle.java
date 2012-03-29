@@ -71,7 +71,7 @@ public class Triangle extends GeoObject {
 		p.addPoint(getXPos(), getYPos());
 		p.addPoint(getXPos() + (int) width, getYPos());
 		p.addPoint(getXPos() + (int) width/2, getYPos() + (int) height);
-		g.fillPolygon(null);
+//		g.fillPolygon(null);
 //		g.drawPolyline(p);		
 	}
 }

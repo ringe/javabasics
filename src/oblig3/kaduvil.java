@@ -20,6 +20,10 @@ import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Label;
 
 public class kaduvil {
 
@@ -30,6 +34,7 @@ public class kaduvil {
 	private Slider slider;
 	private Display display;
 	private Canvas canvas;
+	private int TIMER_INTERVAL = 100;
 
 	/**
 	 * Launch the application.
@@ -48,26 +53,34 @@ public class kaduvil {
 	 * Open the window.
 	 */
 	public void open() {
-		
+
 		display = Display.getDefault();
 		createContents();
+
 		shell.open();
-		shell.layout();
-		display.asyncExec(new Runnable() {
-		    public void run() {
-		    	try {
-					Thread.sleep(500);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+
+		new Thread() {
+			public void run() {
+				while(true) {
+					if (display.isDisposed())
+						break;
+					try {
+						Thread.sleep(TIMER_INTERVAL);
+					} catch (Throwable th) {
+					}
+					if (display.isDisposed())
+						return;
+					display.asyncExec(new Runnable() {
+						public void run() {
+							if (canvas.isDisposed())
+								return;
+							canvas.redraw();
+						}
+					});
 				}
-		    	display.asyncExec(new Runnable() {
-		            public void run() {
-		            	canvas.update();
-		            }
-		        });
-		    }
-		});
-		
+			}
+		}.start();
+
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
@@ -75,7 +88,7 @@ public class kaduvil {
 		}
 		display.dispose();
 	}
-	
+
 
 	/**
 	 * Create contents of the window.
@@ -84,32 +97,41 @@ public class kaduvil {
 		shell = new Shell();
 		shell.setSize(450, 300);
 		shell.setText("SWT Application");
-		 
+		shell.setLayout(new GridLayout(2, false));
 		
-		canvas = new Canvas(shell, SWT.NONE);
-		canvas.setBounds(10, 10, 313, 242);
-		canvas.addPaintListener(new PaintListener(){ 
-	        public void paintControl(PaintEvent e){ 
-	        	org.eclipse.swt.graphics.Rectangle clientArea = shell.getClientArea(); 
-	        	e.gc.drawLine(0,0,clientArea.width,clientArea.height);
-	        	for(Iterator<GeoObject> i = list.iterator();i.hasNext();)
-            	{
-            		GeoObject o = i.next();
-            		o.draw(e.gc);
-            	}
-	        } 
-	    });
+				canvas = new Canvas(shell, SWT.NONE);
+				canvas.setBounds(10, 10, 313, 242);
+				canvas.addPaintListener(new PaintListener(){ 
+					public void paintControl(PaintEvent e){ 
+						org.eclipse.swt.graphics.Rectangle clientArea = shell.getClientArea(); 
+						e.gc.drawLine(0,0,clientArea.width, clientArea.height);
+
+						for(Iterator<GeoObject> i = list.iterator();i.hasNext();)
+						{
+							GeoObject o = i.next();
+							o.draw(e.gc);
+						}
+					}
+				});
+				canvas.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, false, false, 1, 1));
+				GridData gridData = new GridData();
+				gridData.verticalAlignment = GridData.FILL;
+				gridData.verticalSpan = 8;
+				gridData.grabExcessVerticalSpace = true;
+				gridData.horizontalAlignment = GridData.FILL;
+				gridData.grabExcessHorizontalSpace = true;
+				canvas.setLayoutData(gridData);
 		
-		Button btnFarge = new Button(shell, SWT.NONE);
-		btnFarge.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent arg0) {
-				selectedObject.setColor(Color.blue);
-			}
-		});
-		btnFarge.setBounds(329, 10, 75, 25);
-		btnFarge.setText("Farge");
-		
+				Button btnFarge = new Button(shell, SWT.NONE);
+				btnFarge.addSelectionListener(new SelectionAdapter() {
+					@Override
+					public void widgetSelected(SelectionEvent arg0) {
+						selectedObject.setColor(Color.blue);
+					}
+				});
+				btnFarge.setBounds(329, 10, 75, 25);
+				btnFarge.setText("Farge");
+
 		btnBeveg = new Button(shell, SWT.NONE);
 		btnBeveg.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -120,69 +142,73 @@ public class kaduvil {
 		});
 		btnBeveg.setText("Beveg");
 		btnBeveg.setBounds(329, 41, 75, 25);
-		
+
 		slider = new Slider(shell, SWT.NONE);
 		slider.setPageIncrement(1);
 		slider.setBounds(329, 72, 75, 17);
 		slider.addSelectionListener(new SelectionAdapter() {
-		      public void widgetSelected(SelectionEvent e) {
-		        btnBeveg.setText(new Integer(slider.getSelection()).toString());
-		        //selectedObject.setSpeed(slider.getSelection());
-		      }
-		    });
-		
-		Button btnTrekant = new Button(shell, SWT.NONE);
-		btnTrekant.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent arg0) {		
-				Random random = new Random();
-				int xMaxSize = (1/6*shell.getSize().x);
-				int yMaxSize = (1/6*shell.getSize().y);				
-				Triangle t = new Triangle(((random.nextInt(xMaxSize)+1)),((random.nextInt(yMaxSize)+1)));
-				list.add(t);
-				
-				
+			public void widgetSelected(SelectionEvent e) {
+				btnBeveg.setText(new Integer(slider.getSelection()).toString());
+				//selectedObject.setSpeed(slider.getSelection());
 			}
 		});
-		btnTrekant.setText("Trekant");
-		btnTrekant.setBounds(329, 157, 75, 25);
+				new Label(shell, SWT.NONE);
 		
-		Button btnFirkant = new Button(shell, SWT.NONE);
-		btnFirkant.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent arg0) {				
-				Random random = new Random();
-				int xMaxSize = (1/6*shell.getSize().x);
-				int yMaxSize = (1/6*shell.getSize().y);				
-				Rectangle r = new Rectangle(((random.nextInt(xMaxSize)+1)),((random.nextInt(yMaxSize)+1)));
-				list.add(r);
-			}
-		});
-		btnFirkant.setText("Firkant");
-		btnFirkant.setBounds(329, 188, 75, 25);
+				Button btnSirkel = new Button(shell, SWT.NONE);
+				btnSirkel.addSelectionListener(new SelectionAdapter() {
+					@Override
+					public void widgetSelected(SelectionEvent arg0) {
+						Random random = new Random();
+						Point s = shell.getSize();
+						int xMaxSize = (s.x/6);
+						int yMaxSize = (s.y/6);
+						int m = random.nextInt(yMaxSize)+1;
+						Circle c;
+						if(xMaxSize > yMaxSize)
+						{
+							c = new Circle(m); 
+						}
+						else 
+						{
+							c = new Circle((random.nextInt(xMaxSize)+1)); 
+						}
+
+						list.add(c);
+					}
+				});
+				btnSirkel.setText("Sirkel");
+				btnSirkel.setBounds(329, 219, 75, 25);
 		
-		Button btnSirkel = new Button(shell, SWT.NONE);
-		btnSirkel.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent arg0) {
-				Random random = new Random();
-				int xMaxSize = (1/6*shell.getSize().x);
-				int yMaxSize = (1/6*shell.getSize().y);
-				Circle c;
-				if(xMaxSize > yMaxSize)
-				{
-					c = new Circle((random.nextInt(yMaxSize)+1)); 
-				}
-				else 
-				{
-					c = new Circle((random.nextInt(xMaxSize)+1)); 
-				}
+				Button btnFirkant = new Button(shell, SWT.NONE);
+				btnFirkant.addSelectionListener(new SelectionAdapter() {
+					@Override
+					public void widgetSelected(SelectionEvent arg0) {				
+						Random random = new Random();
+						Point s = shell.getSize();
+						int xMaxSize = (s.x/6);
+						int yMaxSize = (s.y/6);						
+						Rectangle r = new Rectangle(((random.nextInt(xMaxSize)+1)),((random.nextInt(yMaxSize)+1)));
+						list.add(r);
+					}
+				});
+				btnFirkant.setText("Firkant");
+				btnFirkant.setBounds(329, 188, 75, 25);
 				
-				list.add(c);
-			}
-		});
-		btnSirkel.setText("Sirkel");
-		btnSirkel.setBounds(329, 219, 75, 25);
+						Button btnTrekant = new Button(shell, SWT.NONE);
+						btnTrekant.addSelectionListener(new SelectionAdapter() {
+							@Override
+							public void widgetSelected(SelectionEvent arg0) {		
+								Random random = new Random();
+								Point s = shell.getSize();
+								int xMaxSize = (s.x/6);
+								int yMaxSize = (s.y/6);				
+								Triangle t = new Triangle(((random.nextInt(xMaxSize)+1)),((random.nextInt(yMaxSize)+1)));
+								list.add(t);
+							}
+						});
+						btnTrekant.setText("Trekant");
+						btnTrekant.setBounds(329, 157, 75, 25);
+				new Label(shell, SWT.NONE);
 
 	}
 }
