@@ -109,6 +109,7 @@ public class Kaduvil {
 						for(Iterator<GeoObject> i = list.iterator();i.hasNext();)
 						{
 							GeoObject o = i.next();
+							o.move();
 							o.draw(e.gc);
 						}
 					}
