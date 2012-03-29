@@ -80,8 +80,12 @@ public class Triangle extends GeoObject {
 		p.addPoint(getXPos(), getYPos());
 		p.addPoint(getXPos() + (int) width, getYPos());
 		p.addPoint(getXPos() + (int) width/2, getYPos() + (int) height);
-//		g.fillPolygon(null);
-//		g.drawPolyline(p);		
+		
+		int x = getXPos();
+		int y = getYPos() + (int) height;
+		int[] a = {x, y, x + (int) width / 2, y - (int) height, x + (int) width, y};
+		g.drawPolyline(a);
+		g.drawLine(x, y, x + (int) width, y);
 	}
 	public void move()
 	{
