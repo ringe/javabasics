@@ -25,18 +25,24 @@ public class Circle extends GeoObject {
 	
 	
 	//new constructor
-	public Circle(int x, int y, boolean f, Color c,int panelWidth, int panelHeight, int radius) {
+	public Circle(int x, int y, boolean f, Color c, int radius) {
 		xPos = x;
 		yPos = y;
 		filled = f;
 		color = c;
-		this.panelHeight = panelHeight;
-		this.panelWidth = panelWidth;
 		this.radius = radius;
 	}
 	
 	
 	public double getRadius() {
+		return radius;
+	}
+	
+	public double getWidth() {
+		return radius;
+	}
+	
+	public double getHeight() {
 		return radius;
 	}
 	
@@ -73,7 +79,7 @@ public class Circle extends GeoObject {
 		return false;
 	}
 	
-	public void move()
+	public void move(int panelWidth, int panelHeight)
 	{
 		if (!isMovable())
 			return;

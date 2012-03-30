@@ -27,13 +27,11 @@ public class Triangle extends GeoObject {
 	
 	
 	
-	public Triangle(int x, int y, boolean f, Color c,int panelWidth, int panelHeight, int width, int height) {
+	public Triangle(int x, int y, boolean f, Color c, int width, int height) {
 		xPos = x;
 		yPos = y;
 		filled = f;
 		color = c;
-		this.panelHeight = panelHeight;
-		this.panelWidth = panelWidth;
 		this.width = width;
 		this.height = height;
 	}
@@ -90,7 +88,7 @@ public class Triangle extends GeoObject {
 		g.fillPolygon(points());
 	}
 	
-	public void move()
+	public void move(int panelWidth, int panelHeight)
 	{
 		if (!isMovable())
 			return;

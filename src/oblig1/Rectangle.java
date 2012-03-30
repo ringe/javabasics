@@ -25,18 +25,20 @@ public class Rectangle extends GeoObject {
 	}
 	
 	
-	public Rectangle(int x, int y, boolean f, Color c,int panelWidth, int panelHeight, int width, int length) {
+	public Rectangle(int x, int y, boolean f, Color c, int width, int length) {
 		xPos = x;
 		yPos = y;
 		filled = f;
 		color = c;
-		this.panelHeight = panelHeight;
-		this.panelWidth = panelWidth;
 		this.width = width;
 		this.length = length;
 	}
 	
 	public double getLength() {
+		return length;
+	}
+	
+	public double getHeight() {
 		return length;
 	}
 	
@@ -76,7 +78,7 @@ public class Rectangle extends GeoObject {
 		return r.contains(x, y);
 	}
 	
-	public void move()
+	public void move(int panelWidth, int panelHeight)
 	{
 		if (!isMovable())
 			return;

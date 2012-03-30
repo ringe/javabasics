@@ -41,8 +41,6 @@ public abstract class GeoObject {
 		yPos = y;
 		filled = f;
 		color = c;
-		this.panelHeight = panelHeight;
-		this.panelWidth = panelWidth;
 	}
 
 	public Color getColor() {
@@ -91,9 +89,12 @@ public abstract class GeoObject {
 
 	public abstract double getPerimeter();
 	
+	public abstract double getWidth();
+	public abstract double getHeight();
+	
 	public abstract void draw(GC gc);
 	
-	public abstract void move();
+	public abstract void move(int panelWidth, int panelHeight);
 
 	public abstract boolean select(int x, int y);
 }

@@ -114,7 +114,8 @@ public class Kaduvil {
 						for(Iterator<GeoObject> i = list.iterator();i.hasNext();)
 						{
 							GeoObject o = i.next();
-							o.move();
+							updateMinSize(o);
+							o.move(canvas.getSize().x, canvas.getSize().y);
 							o.draw(e.gc);
 						}
 					}
@@ -163,6 +164,7 @@ public class Kaduvil {
 			public void widgetSelected(SelectionEvent arg0) {
 				if (selectedObject != null)
 				selectedObject.setMovable(!selectedObject.isMovable());
+				slider.setEnabled(selectedObject.isMovable());
 			}
 		});
 		btnBeveg.setText("Beveg");
@@ -191,16 +193,16 @@ public class Kaduvil {
 						Circle c;
 						if(xMaxSize > yMaxSize)
 						{
-							c = new Circle(1, 1, true, standardColor, canvas.getSize().x, canvas.getSize().y, ((m)));
+							c = new Circle(1, 1, true, standardColor, ((m)));
 						}
 						else 
 						{
 							//c = new Circle((random.nextInt(xMaxSize)+1)); 
-							c = new Circle(1, 1, true, standardColor, canvas.getSize().x, canvas.getSize().y, ((random.nextInt(xMaxSize)+1)));
+							c = new Circle(1, 1, true, standardColor, ((random.nextInt(xMaxSize)+1)));
 						}
 						
-
-						list.add(c);
+						if (list.size() < 20)
+							list.add(c);
 					}
 				});
 				btnSirkel.setText("Sirkel");
@@ -215,8 +217,9 @@ public class Kaduvil {
 						int xMaxSize = (s.x/6);
 						int yMaxSize = (s.y/6);						
 						//Rectangle r = new Rectangle(((random.nextInt(xMaxSize)+1)),((random.nextInt(yMaxSize)+1)));
-						Rectangle r = new Rectangle(1, 1, true, standardColor, canvas.getSize().x, canvas.getSize().y, ((random.nextInt(xMaxSize)+1)),((random.nextInt(yMaxSize)+1)));
-						list.add(r);
+						Rectangle r = new Rectangle(1, 1, true, standardColor, ((random.nextInt(xMaxSize)+1)),((random.nextInt(yMaxSize)+1)));
+						if (list.size() < 20)
+							list.add(r);
 					}
 				});
 				btnFirkant.setText("Firkant");
@@ -231,8 +234,9 @@ public class Kaduvil {
 								int xMaxSize = (s.x/6);
 								int yMaxSize = (s.y/6);				
 								//Triangle t = new Triangle(((random.nextInt(xMaxSize)+1)),((random.nextInt(yMaxSize)+1)));
-								Triangle t = new Triangle(1, 1, true, standardColor, canvas.getSize().x, canvas.getSize().y, ((random.nextInt(xMaxSize)+1)),((random.nextInt(yMaxSize)+1)));
-								list.add(t);
+								Triangle t = new Triangle(1, 1, true, standardColor, ((random.nextInt(xMaxSize)+1)),((random.nextInt(yMaxSize)+1)));
+								if (list.size() < 20)
+									list.add(t);
 							}
 						});
 						btnTrekant.setText("Trekant");
@@ -240,6 +244,16 @@ public class Kaduvil {
 				new Label(shell, SWT.NONE);
 
 	}
+	
+	protected void updateMinSize(GeoObject o) {
+		Point min = shell.getMinimumSize();
+		if (o.getWidth() > min.x)
+			min.x = ((int) o.getWidth() * 4);
+		if (o.getHeight() > min.y)
+			min.y = ((int) o.getHeight() * 4);
+		shell.setMinimumSize(min.x, min.y);
+	}
+
 	public Color getRandomColor()
 	{
 		Color temp;
