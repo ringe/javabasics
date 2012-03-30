@@ -3,9 +3,8 @@
  */
 package oblig1;
 
-import java.awt.Color;
-import java.awt.Graphics;
-
+//import java.awt.Graphics;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 
 /**
@@ -14,12 +13,12 @@ import org.eclipse.swt.graphics.GC;
  */
 // GeoObject.java:
 public abstract class GeoObject {
-	protected Color color = Color.white;
+	protected Color color;
 	protected boolean filled;
 	protected int xPos;
 	protected int yPos;
-	protected int dx = 10;
-	protected int dy = 10;
+	protected int dx = 1;
+	protected int dy = 1;
 	protected int speedFactor =1;
 	protected boolean movable = true;
 	protected int panelWidth;
@@ -60,6 +59,11 @@ public abstract class GeoObject {
 
 	public void setSpeed(int speed) {
 		this.speedFactor = speed;
+		int tempx, tempy;
+		tempx = 1;
+		tempy = 1;
+		dx = tempx*speedFactor;
+		dy = tempy*speedFactor;
 	}
 
 	public boolean isMovable() {

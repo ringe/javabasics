@@ -1,6 +1,5 @@
 package oblig3;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
@@ -18,9 +17,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Slider;
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseListener;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -40,6 +38,8 @@ public class Kaduvil {
 	private Display display;
 	private Canvas canvas;
 	private int TIMER_INTERVAL = 100;
+	Device device = Display.getCurrent();
+	Color standardColor = getRandomColor();
 
 	/**
 	 * Launch the application.
@@ -150,7 +150,8 @@ public class Kaduvil {
 				btnFarge.addSelectionListener(new SelectionAdapter() {
 					@Override
 					public void widgetSelected(SelectionEvent arg0) {
-						selectedObject.setColor(Color.blue);
+						if (selectedObject != null)
+						selectedObject.setColor(getRandomColor());
 					}
 				});
 				btnFarge.setBounds(329, 10, 75, 25);
@@ -160,6 +161,7 @@ public class Kaduvil {
 		btnBeveg.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
+				if (selectedObject != null)
 				selectedObject.setMovable(!selectedObject.isMovable());
 			}
 		});
@@ -171,8 +173,8 @@ public class Kaduvil {
 		slider.setBounds(329, 72, 75, 17);
 		slider.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				btnBeveg.setText(new Integer(slider.getSelection()).toString());
-				//selectedObject.setSpeed(slider.getSelection());
+				if (selectedObject != null)
+				selectedObject.setSpeed(slider.getSelection());
 			}
 		});
 				new Label(shell, SWT.NONE);
@@ -189,12 +191,12 @@ public class Kaduvil {
 						Circle c;
 						if(xMaxSize > yMaxSize)
 						{
-							c = new Circle(1, 1, true, Color.PINK, canvas.getSize().x, canvas.getSize().y, ((m)));
+							c = new Circle(1, 1, true, standardColor, canvas.getSize().x, canvas.getSize().y, ((m)));
 						}
 						else 
 						{
 							//c = new Circle((random.nextInt(xMaxSize)+1)); 
-							c = new Circle(1, 1, true, Color.PINK, canvas.getSize().x, canvas.getSize().y, ((random.nextInt(xMaxSize)+1)));
+							c = new Circle(1, 1, true, standardColor, canvas.getSize().x, canvas.getSize().y, ((random.nextInt(xMaxSize)+1)));
 						}
 						
 
@@ -213,7 +215,7 @@ public class Kaduvil {
 						int xMaxSize = (s.x/6);
 						int yMaxSize = (s.y/6);						
 						//Rectangle r = new Rectangle(((random.nextInt(xMaxSize)+1)),((random.nextInt(yMaxSize)+1)));
-						Rectangle r = new Rectangle(1, 1, true, Color.PINK, canvas.getSize().x, canvas.getSize().y, ((random.nextInt(xMaxSize)+1)),((random.nextInt(yMaxSize)+1)));
+						Rectangle r = new Rectangle(1, 1, true, standardColor, canvas.getSize().x, canvas.getSize().y, ((random.nextInt(xMaxSize)+1)),((random.nextInt(yMaxSize)+1)));
 						list.add(r);
 					}
 				});
@@ -229,7 +231,7 @@ public class Kaduvil {
 								int xMaxSize = (s.x/6);
 								int yMaxSize = (s.y/6);				
 								//Triangle t = new Triangle(((random.nextInt(xMaxSize)+1)),((random.nextInt(yMaxSize)+1)));
-								Triangle t = new Triangle(1, 1, true, Color.PINK, canvas.getSize().x, canvas.getSize().y, ((random.nextInt(xMaxSize)+1)),((random.nextInt(yMaxSize)+1)));
+								Triangle t = new Triangle(1, 1, true, standardColor, canvas.getSize().x, canvas.getSize().y, ((random.nextInt(xMaxSize)+1)),((random.nextInt(yMaxSize)+1)));
 								list.add(t);
 							}
 						});
@@ -237,5 +239,16 @@ public class Kaduvil {
 						btnTrekant.setBounds(329, 157, 75, 25);
 				new Label(shell, SWT.NONE);
 
+	}
+	public Color getRandomColor()
+	{
+		Color temp;
+		Random random = new Random();
+		int r, g, b;
+		r = random.nextInt(255);
+		g = random.nextInt(255);
+		b = random.nextInt(255);
+		temp = new Color (device, r, g, b);		
+		return temp;
 	}
 }

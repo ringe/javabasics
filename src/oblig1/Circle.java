@@ -3,9 +3,8 @@
  */
 package oblig1;
 
-import java.awt.Color;
-import java.awt.Graphics;
 
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 
 /**
@@ -23,13 +22,7 @@ public class Circle extends GeoObject {
 		super();
 	}
 	
-	/*
-	 * Constructor, takes length and width
-	 */
-	public Circle(int r) {
-		super( 1, 1, true, Color.green,300,300);
-		radius = r;
-	}
+	
 	
 	//new constructor
 	public Circle(int x, int y, boolean f, Color c,int panelWidth, int panelHeight, int radius) {
@@ -69,7 +62,8 @@ public class Circle extends GeoObject {
 
 	@Override
 	public void draw(GC g) {
-		g.drawOval(getXPos(), getYPos(), (int) radius, (int) radius);
+		g.setBackground(color);
+		g.fillOval(getXPos(), getYPos(), (int) radius, (int) radius);
 	}
 	
 	@Override

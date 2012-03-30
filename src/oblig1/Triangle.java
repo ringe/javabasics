@@ -3,10 +3,10 @@
  */
 package oblig1;
 
-import java.awt.Color;
-import java.awt.Graphics;
+
 import java.awt.Polygon;
 
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 
 /**
@@ -25,14 +25,8 @@ public class Triangle extends GeoObject {
 		super();
 	}
 	
-	/*
-	 * Constructor, takes length and width
-	 */
-	public Triangle(int l, int w) {
-		super( 0, 0, true, Color.blue, 300, 300);
-		height = l;
-		width = w;
-	}
+	
+	
 	public Triangle(int x, int y, boolean f, Color c,int panelWidth, int panelHeight, int width, int height) {
 		xPos = x;
 		yPos = y;
@@ -90,9 +84,10 @@ public class Triangle extends GeoObject {
 	}
 
 	@Override
-	public void draw(GC g) {
-		g.drawPolyline(points());
+	public void draw(GC g) {		
 		g.drawLine(xPos, yPos  + (int) height, xPos + (int) width, yPos + (int) height);
+		g.setBackground(color);			
+		g.fillPolygon(points());
 	}
 	
 	public void move()
